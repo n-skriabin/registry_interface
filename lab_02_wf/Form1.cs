@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,7 +25,13 @@ namespace lab_02_wf
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
 
+            var newKey = key.OpenSubKey(textBox1.Text, true);
+
+            newKey.SetValue(textBox19.Text, Convert.ToInt32(textBox2.Text), RegistryValueKind.DWord);
+
+            newKey.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
