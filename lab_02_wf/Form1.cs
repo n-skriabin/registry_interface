@@ -47,7 +47,6 @@ namespace lab_02_wf
         {
             var path = textBox6.Text.Replace("\r\n", "").Replace("HKEY_LOCAL_MACHINE\\", "");
             var newKey = key.OpenSubKey(path, true);
-
             newKey.SetValue(textBox29.Text, Convert.ToInt32(textBox5.Text), RegistryValueKind.DWord);
 
             newKey.Close();
