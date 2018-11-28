@@ -18,10 +18,20 @@ namespace lab_02_wf
         public Form1()
         {
             InitializeComponent();
-        }
 
-        private void Form1_Load(object sender, EventArgs e) { }
-       
+            InitValues();
+            InitMessage();           
+        }   
+
+        private void InitMessage()
+        {
+            string caption = "Приветствуем! :)";
+            string message = "В данной программе вы можете изменять некоторые значения полей в реестре вашей ОС Windows." + Environment.NewLine +
+                "Так же вы можете ознакомиться с описанием каждого изменяемого поля по нажатию на кнопку \"Получить подробную информацию\"" + Environment.NewLine +
+                "По нажатию на кнопку \"Обновить\", а так же каждый раз при запуске программы будут обновляться текущие значения полей в реестре.";
+
+            ShowDescriptionMessageBox(caption, message);
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -206,6 +216,76 @@ namespace lab_02_wf
         private void ShowDescriptionMessageBox(string caption, string message)
         {
             MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            InitValues(false);
+        }
+
+        private void InitValues(bool init = true)
+        {
+            var path = textBox1.Text.Replace("\r\n", "").Replace("HKEY_LOCAL_MACHINE\\", "");
+            var newKey = key.OpenSubKey(path, true);
+            numericUpDown1.Text = newKey.GetValue(textBox19.Text).ToString();
+
+            path = textBox4.Text.Replace("\r\n", "").Replace("HKEY_LOCAL_MACHINE\\", "");
+            newKey = key.OpenSubKey(path, true);
+            numericUpDown2.Text = newKey.GetValue(textBox30.Text).ToString();
+
+            path = textBox6.Text.Replace("\r\n", "").Replace("HKEY_LOCAL_MACHINE\\", "");
+            newKey = key.OpenSubKey(path, true);
+            numericUpDown3.Text = newKey.GetValue(textBox29.Text).ToString();
+
+            path = textBox8.Text.Replace("\r\n", "").Replace("HKEY_LOCAL_MACHINE\\", "");
+            newKey = key.OpenSubKey(path, true);
+            numericUpDown4.Text = newKey.GetValue(textBox28.Text).ToString();
+
+            //////////////////////////////////////////////////////////////////////////////////
+
+            path = textBox10.Text.Replace("\r\n", "").Replace("HKEY_LOCAL_MACHINE\\", "");
+            newKey = key.OpenSubKey(path, true);
+            checkBox2.Checked = newKey.GetValue(textBox27.Text).ToString() == "1" ? true : false;
+
+            path = textBox18.Text.Replace("\r\n", "").Replace("HKEY_LOCAL_MACHINE\\", "");
+            newKey = key.OpenSubKey(path, true);
+            checkBox5.Checked = newKey.GetValue(textBox26.Text).ToString() == "1" ? true : false;
+
+            path = textBox16.Text.Replace("\r\n", "").Replace("HKEY_LOCAL_MACHINE\\", "");
+            newKey = key.OpenSubKey(path, true);
+            checkBox1.Checked = newKey.GetValue(textBox25.Text).ToString() == "1" ? true : false;
+
+            path = textBox14.Text.Replace("\r\n", "").Replace("HKEY_LOCAL_MACHINE\\", "");
+            newKey = key.OpenSubKey(path, true);
+            checkBox4.Checked = newKey.GetValue(textBox24.Text).ToString() == "1" ? true : false;
+
+            path = textBox12.Text.Replace("\r\n", "").Replace("HKEY_LOCAL_MACHINE\\", "");
+            newKey = key.OpenSubKey(path, true);
+            checkBox3.Checked = newKey.GetValue(textBox23.Text).ToString() == "1" ? true : false;
+
+            //////////////////////////////////////////////////////////////////////////////////
+
+            path = textBox22.Text.Replace("\r\n", "").Replace("HKEY_LOCAL_MACHINE\\", "");
+            newKey = key.OpenSubKey(path, true);
+            numericUpDown5.Text = newKey.GetValue(textBox20.Text).ToString();
+
+            if (!init)
+            {
+                string caption = "Параметры";
+                string message = "Значения всех параметров были успешно обновлены.";
+
+                ShowDescriptionMessageBox(caption, message);
+            }
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            InitMessage();
         }
     }
 }
